@@ -70,6 +70,9 @@ const config: Config = {
       fontWeight: {
         regular: "400",
       },
+      boxShadow: {
+        dropdown: "0px 8px 40px 0px rgba(52, 52, 61, 0.15)",
+      },
     },
   },
   plugins: [],
