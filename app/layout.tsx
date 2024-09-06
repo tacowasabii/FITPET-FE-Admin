@@ -3,6 +3,7 @@ import "@styles/globals.css";
 import type { Metadata } from "next";
 import React from "react";
 import localFont from "next/font/local";
+import Sidebar from "@components/Sidebar";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,8 +24,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${pretendard.variable}`}>
-      <body className="font-pretendard font-medium">
-        <Providers>{children}</Providers>
+      <body className="min-w-[1920px] font-pretendard font-medium">
+        <Providers>
+          <div className="flex">
+            <Sidebar />
+            <div className="flex-grow">{children}</div>
+          </div>
+        </Providers>
       </body>
     </html>
   );
