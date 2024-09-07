@@ -7,6 +7,10 @@ import { useState } from "react";
 function DeleteButton() {
   const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
 
+  const handleDelete = () => {
+    setIsDeletePopupOpen(false);
+  };
+
   return (
     <div>
       <button
@@ -18,7 +22,10 @@ function DeleteButton() {
         삭제
       </button>
       {isDeletePopupOpen && (
-        <DeletePopup onClose={() => setIsDeletePopupOpen(false)} />
+        <DeletePopup
+          onClose={() => setIsDeletePopupOpen(false)}
+          onDelete={handleDelete}
+        />
       )}
     </div>
   );
