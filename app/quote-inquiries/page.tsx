@@ -16,7 +16,9 @@ import useGetComparisonExcel from "@app/api/hooks/comparison/useGetComparisonExc
 import useGetComparisonPdf from "@app/api/hooks/comparison/useGetComparisonPdf";
 import useGetComparison from "@app/api/hooks/comparison/useGetComparison";
 import { useToast } from "@chakra-ui/react";
-import DeleteButton from "./components/DeleteButton";
+import useDeleteComparison from "@app/api/hooks/comparison/useDeleteComparison";
+import DeleteButton from "@components/DeleteButton";
+import QuoteStatusButton from "./components/QuoteStatusButton";
 
 function QuoteInquiriesPage() {
   const [startDate, setStartDate] = useState<Date | undefined>(undefined);
@@ -74,6 +76,12 @@ function QuoteInquiriesPage() {
     }
   };
 
+  const { mutate: deleteComparison } = useDeleteComparison();
+
+  const handleDelete = (comparisonId: number) => {
+    deleteComparison(comparisonId);
+  };
+
   return (
     <div className="flex w-full flex-col">
       <div className="ml-6 mt-10 flex items-center gap-4">
@@ -101,13 +109,18 @@ function QuoteInquiriesPage() {
             onClick={handlePreviousPage}
           />
           <div className="flex items-center gap-2">
-            {data?.data.currentPage &&
-            data?.data.pageSize &&
-            data?.data.numberOfElement
-              ? (data.data.currentPage - 1) * data.data.pageSize +
-                data.data.numberOfElement
-              : 0}{" "}
-            / {data?.data.totalElements || 0}
+            <div className="text-primary-50">
+              {data?.data.currentPage &&
+              data?.data.pageSize &&
+              data?.data.numberOfElement
+                ? (data.data.currentPage - 1) * data.data.pageSize +
+                  data.data.numberOfElement
+                : 0}
+            </div>
+            <div className="text-grayscale-20">/</div>
+            <div className="text-grayscale-40">
+              {data?.data.totalElements || 0}
+            </div>
           </div>
           <RightArrowIcon
             className={`cursor-pointer ${
@@ -176,7 +189,19 @@ function QuoteInquiriesPage() {
             ) : (
               data?.data.content.map((item) => (
                 <tr key={item.comparisonId} className="hover:bg-gray-50">
-                  <td className="border-b px-6 py-4">{item.status}</td>
+                  <td className="border-b px-6 py-4">
+                    <QuoteStatusButton
+                      comparisonId={item.comparisonId}
+                      status={
+                        item.status as
+                          | "PENDING"
+                          | "SENT"
+                          | "CONSULTING"
+                          | "CONSULT_DONE"
+                          | "SIGNED"
+                      }
+                    />
+                  </td>
                   <td className="border-b px-6 py-4">Q{item.comparisonId}</td>
                   <td className="border-b px-6 py-4">{item.createdAt}</td>
                   <td className="border-b px-6 py-4">
@@ -197,7 +222,9 @@ function QuoteInquiriesPage() {
                       <DownloadIcon />
                       다운로드
                     </button>
-                    <DeleteButton comparisonId={item.comparisonId} />
+                    <DeleteButton
+                      onDelete={() => handleDelete(item.comparisonId)}
+                    />
                   </td>
                 </tr>
               ))

@@ -34,11 +34,19 @@ tokenInstance.interceptors.response.use(
     if (error.response?.status === 401) {
       window.location.href = "/";
     } else {
-      toast({
-        title: "에러가 발생했습니다.",
-        status: "error",
-        isClosable: true,
-      });
+      if (error.response?.data?.message) {
+        toast({
+          title: `${error.response?.data?.message}`,
+          status: "error",
+          isClosable: true,
+        });
+      } else {
+        toast({
+          title: "에러가 발생했습니다.",
+          status: "error",
+          isClosable: true,
+        });
+      }
       return Promise.reject(error);
     }
     return Promise.reject();
