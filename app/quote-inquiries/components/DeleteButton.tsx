@@ -1,11 +1,22 @@
 "use client";
 
+import useDeleteComparison from "@app/api/hooks/comparison/useDeleteComparison";
 import DeletePopup from "@components/DeletePopup";
 import { DeleteIcon } from "@public/svg";
 import { useState } from "react";
 
-function DeleteButton() {
+interface DeleteButtonProps {
+  comparisonId: number;
+}
+
+function DeleteButton({ comparisonId }: DeleteButtonProps) {
   const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
+  const { mutate: deleteComparison } = useDeleteComparison();
+
+  const handleDelete = () => {
+    deleteComparison(comparisonId);
+    setIsDeletePopupOpen(false);
+  };
 
   return (
     <div>
@@ -18,7 +29,10 @@ function DeleteButton() {
         삭제
       </button>
       {isDeletePopupOpen && (
-        <DeletePopup onClose={() => setIsDeletePopupOpen(false)} />
+        <DeletePopup
+          onClose={() => setIsDeletePopupOpen(false)}
+          onDelete={handleDelete} // 팝업에서 삭제 처리
+        />
       )}
     </div>
   );

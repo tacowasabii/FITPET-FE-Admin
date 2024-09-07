@@ -2,12 +2,19 @@ import { CloseIcon } from "@public/svg";
 
 interface DeletePopupProps {
   onClose: () => void;
+  onDelete: () => void;
 }
 
-export default function DeletePopup({ onClose }: DeletePopupProps) {
+export default function DeletePopup({ onClose, onDelete }: DeletePopupProps) {
   const handleClose = () => {
     onClose();
   };
+
+  const handleDelete = () => {
+    onDelete();
+    onClose();
+  };
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="flex h-[264px] w-[560px] flex-col items-center overflow-hidden rounded-3xl bg-white font-medium">
@@ -27,6 +34,7 @@ export default function DeletePopup({ onClose }: DeletePopupProps) {
           </button>
           <button
             type="button"
+            onClick={handleDelete} // 삭제하기 클릭 시 onDelete 실행
             className="h-full w-1/2 border-t-1 border-t-primary-50 bg-primary-50 text-grayscale-00"
           >
             삭제하기

@@ -1,12 +1,20 @@
-"use client";
-
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-function DateRangePicker() {
-  const [startDate, setStartDate] = useState<Date | undefined>(undefined);
-  const [endDate, setEndDate] = useState<Date | undefined>(undefined);
+interface DateRangePickerProps {
+  startDate: Date | undefined;
+  endDate: Date | undefined;
+  setStartDate: (date: Date | undefined) => void;
+  setEndDate: (date: Date | undefined) => void;
+}
+
+function DateRangePicker({
+  startDate,
+  endDate,
+  setStartDate,
+  setEndDate,
+}: DateRangePickerProps) {
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
 
   const handleDivClick = () => {
@@ -24,10 +32,10 @@ function DateRangePicker() {
   };
 
   return (
-    <div>
+    <div className="relative">
       <button
         type="button"
-        className="relative cursor-pointer rounded-lg border-1 border-primary-50 px-3 py-2 text-primary-50"
+        className="cursor-pointer rounded-lg border-1 border-primary-50 px-3 py-2 text-primary-50"
         onClick={handleDivClick}
       >
         {startDate && endDate
@@ -35,7 +43,7 @@ function DateRangePicker() {
           : "YYYY.MM.DD ~ YYYY.MM.DD"}
       </button>
       {isDatePickerOpen && (
-        <div className="absolute top-[220px] mt-2">
+        <div className="absolute top-10 mt-2">
           <DatePicker
             selected={startDate}
             onChange={handleDateChange}

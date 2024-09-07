@@ -1,5 +1,6 @@
 "use client";
 
+import usePostLogin from "@app/api/hooks/auth/usePostLogin";
 import { WarningIcon } from "@public/svg";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
@@ -22,7 +23,11 @@ export default function Home() {
   const isFormValid =
     watchedFields.every((field) => field) && !Object.keys(errors).length;
 
-  const onSubmit = () => {};
+  const { mutate } = usePostLogin();
+
+  const onSubmit = (data: LoginFormValues) => {
+    mutate(data);
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -44,10 +49,10 @@ export default function Home() {
                   {...register("id", {
                     required: "아이디를 입력해주세요.",
                   })}
-                  className={`h-[66px] w-full rounded-xl bg-grayscale-00 px-4 outline outline-1 outline-grayscale-20 placeholder:text-grayscale-40 ${
+                  className={`h-[66px] w-full rounded-xl bg-grayscale-00 px-4 outline outline-1 placeholder:text-grayscale-40 ${
                     errors.id
-                      ? "outline outline-1 outline-danger"
-                      : "focus:outline-primary-50"
+                      ? "outline-danger"
+                      : "outline-grayscale-20 focus:outline-primary-50"
                   }`}
                   placeholder="관리자 아이디"
                 />
@@ -63,10 +68,10 @@ export default function Home() {
                   {...register("password", {
                     required: "비밀번호를 입력해주세요.",
                   })}
-                  className={`h-[66px] w-full rounded-xl bg-grayscale-00 px-4 outline outline-1 outline-grayscale-20 placeholder:text-grayscale-40 ${
+                  className={`h-[66px] w-full rounded-xl bg-grayscale-00 px-4 outline outline-1 placeholder:text-grayscale-40 ${
                     errors.password
-                      ? "outline outline-1 outline-red-500"
-                      : "focus:outline-primary-50"
+                      ? "outline-danger"
+                      : "outline-grayscale-20 focus:outline-primary-50"
                   }`}
                   placeholder="비밀번호"
                 />
