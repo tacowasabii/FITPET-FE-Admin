@@ -5,13 +5,7 @@ import { ExportIcon, FilterIcon } from "@public/svg";
 import React from "react";
 
 function InSurancePage() {
-  const insuranceCompanylist = [
-    "DB손해보험",
-    "삼성화재",
-    "견적발송",
-    "메리츠",
-    "보험사이름",
-  ];
+  const insuranceCompanylist = ["메리츠", "DB", "삼성", "KB", "현대"];
   return (
     <div className="flex w-full flex-col">
       <div className="ml-6 mt-10 flex items-center gap-4">

@@ -23,7 +23,7 @@ export default function Home() {
   const isFormValid =
     watchedFields.every((field) => field) && !Object.keys(errors).length;
 
-  const { mutate } = usePostLogin();
+  const { mutate, isPending } = usePostLogin();
 
   const onSubmit = (data: LoginFormValues) => {
     mutate(data);
@@ -86,6 +86,7 @@ export default function Home() {
           </div>
           <button
             type="submit"
+            disabled={isPending}
             className={`w-[504px] rounded-tl-3xl ${
               isFormValid
                 ? "bg-primary-50 text-white"

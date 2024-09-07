@@ -2,19 +2,14 @@ import tokenInstance from "./tokenInstance";
 
 export interface GetComparisonProps {
   page: number;
-  startDate: string;
-  endDate: string;
+  startDate?: string;
+  endDate?: string;
   status?: string;
 }
 export interface GetComparisonExcelProps {
   startDate: string;
   endDate: string;
   status?: string;
-}
-
-export interface GetComparisonSearchProps {
-  content: string;
-  page: number;
 }
 
 export interface ComparisonItem {
@@ -45,7 +40,7 @@ export interface GetComparisonResponse {
   };
 }
 
-const getComparison = async ({
+export const getComparison = async ({
   page,
   startDate,
   endDate,
@@ -59,7 +54,7 @@ const getComparison = async ({
   return response.data;
 };
 
-const getComparisonExcel = async ({
+export const getComparisonExcel = async ({
   startDate,
   endDate,
   status,
@@ -70,32 +65,23 @@ const getComparisonExcel = async ({
     params: { startDate, endDate, status },
     responseType: "blob",
   });
-  return response.data;
+  return response;
 };
 
-const getComparisonPdf = async (comparisonId: number) => {
+export const getComparisonPdf = async (comparisonId: number) => {
   const response = await tokenInstance({
     url: `/comparison/${comparisonId}/pdf`,
     method: "get",
     params: { comparisonId },
     responseType: "blob",
+    headers: {
+      Accept: "application/pdf",
+    },
   });
-  return response.data;
+  return response;
 };
 
-const getComparisonSearch = async ({
-  content,
-  page,
-}: GetComparisonSearchProps) => {
-  const response = await tokenInstance({
-    url: "/comparison/search",
-    method: "get",
-    params: { content, page },
-  });
-  return response.data;
-};
-
-const deleteComparison = async (comparisonId: number) => {
+export const deleteComparison = async (comparisonId: number) => {
   const response = await tokenInstance({
     url: `/comparison/${comparisonId}`,
     method: "delete",
@@ -103,10 +89,36 @@ const deleteComparison = async (comparisonId: number) => {
   return response.data;
 };
 
-export {
-  getComparison,
-  getComparisonExcel,
-  getComparisonPdf,
-  getComparisonSearch,
-  deleteComparison,
+export interface UpdateComparisonStatusProps {
+  comparisonId: number;
+  status: string;
+}
+
+export const updateComparisonStatus = async ({
+  comparisonId,
+  status,
+}: UpdateComparisonStatusProps) => {
+  const response = await tokenInstance({
+    url: `/comparison/status/${comparisonId}`,
+    method: "patch",
+    params: { status },
+  });
+  return response.data;
+};
+
+export interface SearchComparisonProps {
+  content: string;
+  page: number;
+}
+
+export const searchComparison = async ({
+  content,
+  page,
+}: SearchComparisonProps): Promise<GetComparisonResponse> => {
+  const response = await tokenInstance({
+    url: `/comparison/search`,
+    method: "get",
+    params: { content, page },
+  });
+  return response.data;
 };

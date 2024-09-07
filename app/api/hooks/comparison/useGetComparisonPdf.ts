@@ -24,13 +24,6 @@ const useGetComparisonPdf = () => {
         isClosable: true,
       });
     },
-    onError: () => {
-      toast({
-        title: "PDF 파일을 여는 데 실패했습니다.",
-        status: "error",
-        isClosable: true,
-      });
-    },
   });
 };
 

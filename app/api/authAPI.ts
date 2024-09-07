@@ -27,15 +27,4 @@ const login = async (
   return response;
 };
 
-// const getTokens = async (refreshToken: string) => {
-//   const response = await tokenInstance({
-//     url: '/auth/tokens',
-//     method: 'post',
-//     headers: {
-//       Authorization: `Bearer ${refreshToken}`,
-//     },
-//   });
-//   return response;
-// };
-
 export default { login };

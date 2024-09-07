@@ -1,8 +1,9 @@
-import { useToast } from "@chakra-ui/react";
+import { createStandaloneToast } from "@chakra-ui/react";
 import axios from "axios";
-import { useRouter } from "next/navigation";
 
 const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
+const { toast } = createStandaloneToast();
 
 const tokenInstance = axios.create({
   baseURL,
@@ -12,19 +13,6 @@ const tokenInstance = axios.create({
   },
 });
 
-function handleTokenExpiration() {
-  const router = useRouter();
-  const toast = useToast();
-
-  toast({
-    title: "로그인이 만료되었습니다.",
-    status: "error",
-    isClosable: true,
-  });
-
-  router.push("/");
-}
-
 tokenInstance.interceptors.request.use(
   (config) => {
     const accessToken = localStorage.getItem("accessToken");
@@ -33,13 +21,28 @@ tokenInstance.interceptors.request.use(
       if (config.headers) {
         config.headers.set("Authorization", `Bearer ${accessToken}`);
       }
-    } else {
-      handleTokenExpiration();
     }
 
     return config;
   },
   (error) => Promise.reject(error),
+);
+
+tokenInstance.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    if (error.response?.status === 401) {
+      window.location.href = "/";
+    } else {
+      toast({
+        title: "에러가 발생했습니다.",
+        status: "error",
+        isClosable: true,
+      });
+      return Promise.reject(error);
+    }
+    return Promise.reject();
+  },
 );
 
 export default tokenInstance;
