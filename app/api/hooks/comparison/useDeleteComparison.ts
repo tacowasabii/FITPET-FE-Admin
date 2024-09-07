@@ -16,13 +16,6 @@ const useDeleteComparison = () => {
       });
       queryClient.invalidateQueries({ queryKey: ["comparison"] });
     },
-    onError: () => {
-      toast({
-        title: "견적서 삭제에 실패했습니다.",
-        status: "error",
-        isClosable: true,
-      });
-    },
   });
 };
 

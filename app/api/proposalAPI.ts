@@ -1,46 +1,46 @@
 import tokenInstance from "./tokenInstance";
 
-export interface GetInquiryProps {
+export interface GetProposalProps {
   startDate?: string;
   endDate?: string;
   status?: string;
   page: number;
 }
 
-export interface UpdateInquiryStatusProps {
-  inquiryId: number;
+export interface UpdateProposalStatusProps {
+  proposalId: number;
   status: string;
 }
 
-export const getInquiry = async ({
+export const getProposal = async ({
   startDate,
   endDate,
   status,
   page,
-}: GetInquiryProps) => {
+}: GetProposalProps) => {
   const response = await tokenInstance({
-    url: "/inquiry",
+    url: "/proposal",
     method: "get",
     params: { startDate, endDate, status, page },
   });
   return response.data;
 };
 
-export const updateInquiryStatus = async ({
-  inquiryId,
+export const updateProposalStatus = async ({
+  proposalId,
   status,
-}: UpdateInquiryStatusProps) => {
+}: UpdateProposalStatusProps) => {
   const response = await tokenInstance({
-    url: `/inquiry/status/${inquiryId}`,
+    url: `/proposal/status/${proposalId}`,
     method: "patch",
     params: { status },
   });
   return response.data;
 };
 
-export const deleteInquiry = async (inquiryId: number) => {
+export const deleteProposal = async (proposalId: number) => {
   const response = await tokenInstance({
-    url: `/inquiry/${inquiryId}`,
+    url: `/proposal/${proposalId}`,
     method: "delete",
   });
   return response.data;

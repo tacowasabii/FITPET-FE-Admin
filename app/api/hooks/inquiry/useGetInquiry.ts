@@ -1,4 +1,4 @@
-import getInquiry, { GetInquiryProps } from "@app/api/inquiryAPI";
+import { getInquiry, GetInquiryProps } from "@app/api/inquiryAPI";
 import { useQuery } from "@tanstack/react-query";
 
 const useGetInquiry = ({ startDate, endDate, status, page }: GetInquiryProps) =>
