@@ -33,7 +33,7 @@ function FilterButton({ filters, width = "w-[60px]" }: FilterButtonProps) {
       </button>
 
       {isFilterButtonOpen && (
-        <div className="shadow-dropdown absolute z-10 mt-2 flex w-full flex-col overflow-hidden rounded-2xl">
+        <div className="absolute z-10 mt-2 flex w-full flex-col overflow-hidden rounded-2xl shadow-dropdown">
           {filters.map((filter) => (
             <button
               key={filter}
