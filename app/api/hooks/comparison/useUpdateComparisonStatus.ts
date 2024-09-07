@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@chakra-ui/react";
 import {
   updateComparisonStatus,
@@ -7,6 +7,7 @@ import {
 
 const useUpdateComparisonStatus = () => {
   const toast = useToast();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: ({ comparisonId, status }: UpdateComparisonStatusProps) =>
@@ -17,6 +18,7 @@ const useUpdateComparisonStatus = () => {
         status: "success",
         isClosable: true,
       });
+      queryClient.invalidateQueries({ queryKey: ["comparison"] });
     },
   });
 };
