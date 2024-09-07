@@ -1,12 +1,28 @@
+"use client";
+
+import DateRangePicker from "@components/DateRangePicker";
+import FilterButton from "@components/FilterButton";
 import {
   CalenderIcon,
   FilterIcon,
   LeftArrowIcon,
   RightArrowIcon,
 } from "@public/svg";
-import React from "react";
+import React, { useState } from "react";
 
 function PartnershipPage() {
+  const [startDate, setStartDate] = useState<Date | undefined>(undefined);
+  const [endDate, setEndDate] = useState<Date | undefined>(undefined);
+  const statusList = ["답변대기", "진행 중", "응대완료"];
+
+  const handleSetStartDate = (date: Date | undefined) => {
+    setStartDate(date);
+  };
+
+  const handleSetEndDate = (date: Date | undefined) => {
+    setEndDate(date);
+  };
+
   return (
     <div className="flex w-full flex-col">
       <div className="ml-6 mt-10 text-3xl font-medium text-grayscale-90">
@@ -23,18 +39,19 @@ function PartnershipPage() {
             <CalenderIcon />
             <div className="text-grayscale-40">기간</div>
           </div>
-          <div className="rounded-lg border-1 border-primary-50 px-3 py-2 text-primary-50">
-            2024.08.00 ~ 2024.08.00
-          </div>
+          <DateRangePicker
+            startDate={startDate}
+            endDate={endDate}
+            setStartDate={handleSetStartDate}
+            setEndDate={handleSetEndDate}
+          />
         </div>
         <div className="flex items-center gap-2 text-md font-medium">
           <div className="flex items-center gap-1">
             <FilterIcon />
             <div className="text-grayscale-40">필터</div>
           </div>
-          <div className="rounded-[90px] border-1 border-primary-50 px-4 py-2 text-primary-50">
-            견적서 발송
-          </div>
+          <FilterButton filters={statusList} />
         </div>
       </div>
       <div className="mt-4 text-sm font-medium">
