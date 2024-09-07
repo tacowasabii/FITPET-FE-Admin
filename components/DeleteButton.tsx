@@ -4,10 +4,15 @@ import DeletePopup from "@components/DeletePopup";
 import { DeleteIcon } from "@public/svg";
 import { useState } from "react";
 
-function DeleteButton() {
+interface DeleteButtonProps {
+  onDelete: () => void;
+}
+
+function DeleteButton({ onDelete }: DeleteButtonProps) {
   const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
 
   const handleDelete = () => {
+    onDelete();
     setIsDeletePopupOpen(false);
   };
 
