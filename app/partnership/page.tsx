@@ -1,5 +1,7 @@
 "use client";
 
+/* eslint-disable react/no-array-index-key */
+
 import DateRangePicker from "@components/DateRangePicker";
 import FilterButton from "@components/FilterButton";
 import {
