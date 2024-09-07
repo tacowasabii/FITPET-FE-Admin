@@ -31,7 +31,7 @@ function DeleteButton({ comparisonId }: DeleteButtonProps) {
       {isDeletePopupOpen && (
         <DeletePopup
           onClose={() => setIsDeletePopupOpen(false)}
-          onDelete={handleDelete} // 팝업에서 삭제 처리
+          onDelete={handleDelete}
         />
       )}
     </div>
