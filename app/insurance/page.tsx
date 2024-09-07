@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import { Checkbox } from "@chakra-ui/react";
 import FilterButton from "@components/FilterButton";
 import { ExportIcon, FilterIcon } from "@public/svg";

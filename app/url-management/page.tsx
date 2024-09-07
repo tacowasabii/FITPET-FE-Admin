@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import DeleteButton from "@components/DeleteButton";
 import SearchBar from "@components/SearchBar";
 import {
