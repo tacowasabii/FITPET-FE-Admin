@@ -15,12 +15,14 @@ import DateRangePicker from "@components/DateRangePicker";
 import useGetComparisonExcel from "@app/api/hooks/comparison/useGetComparisonExcel";
 import useGetComparisonPdf from "@app/api/hooks/comparison/useGetComparisonPdf";
 import useGetComparison from "@app/api/hooks/comparison/useGetComparison";
+import { useToast } from "@chakra-ui/react";
 import DeleteButton from "./components/DeleteButton";
 
 function QuoteInquiriesPage() {
   const [startDate, setStartDate] = useState<Date | undefined>(undefined);
   const [endDate, setEndDate] = useState<Date | undefined>(undefined);
   const [page, setPage] = useState<number>(0); // 페이지는 0부터 시작
+  const toast = useToast();
 
   const handleSetStartDate = (date: Date | undefined) => {
     setStartDate(date);
@@ -30,27 +32,30 @@ function QuoteInquiriesPage() {
     setEndDate(date);
   };
 
-  const { data, isLoading } = useGetComparison(
-    {
-      page,
-      startDate: startDate ? startDate.toISOString().split("T")[0] : "",
-      endDate: endDate ? endDate.toISOString().split("T")[0] : "",
-      status: "",
-    },
-    {
-      enabled: !!startDate && !!endDate,
-    },
-  );
+  const { data, isLoading } = useGetComparison({
+    page,
+    ...(startDate && { startDate: startDate.toISOString().split("T")[0] }),
+    ...(endDate && { endDate: endDate.toISOString().split("T")[0] }),
+    status: "",
+  });
 
   const { mutate: exportComparisonExcel } = useGetComparisonExcel();
-  const { mutate: openPdf } = useGetComparisonPdf();
+  const { mutate: exportComparisonPdf } = useGetComparisonPdf();
 
   const handleExportClick = () => {
-    exportComparisonExcel({
-      startDate: startDate ? startDate.toISOString().split("T")[0] : "",
-      endDate: endDate ? endDate.toISOString().split("T")[0] : "",
-      status: "",
-    });
+    if (!startDate || !endDate) {
+      toast({
+        title: "날짜를 지정해 주세요.",
+        status: "warning",
+        isClosable: true,
+      });
+    } else {
+      exportComparisonExcel({
+        startDate: startDate.toISOString().split("T")[0],
+        endDate: endDate.toISOString().split("T")[0],
+        status: "",
+      });
+    }
   };
 
   const handleNextPage = () => {
@@ -186,7 +191,7 @@ function QuoteInquiriesPage() {
                   <td className="flex gap-2 border-b px-6 py-4">
                     <button
                       type="button"
-                      onClick={() => openPdf(item.comparisonId)}
+                      onClick={() => exportComparisonPdf(item.comparisonId)}
                       className="flex items-center gap-1 rounded-[4px] bg-primary-00/50 px-3 py-1 text-sm font-medium text-primary-50"
                     >
                       <DownloadIcon />
