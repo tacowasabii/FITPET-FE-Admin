@@ -1,4 +1,4 @@
-"use client";
+8"use client";
 
 import useDeleteReferSite from "@app/api/hooks/refersite/useDeleteReferSite";
 import useGetRefersite from "@app/api/hooks/refersite/useGetReferSites";
@@ -93,7 +93,7 @@ function UrlManagementPage() {
       <div className="flex w-full flex-col">
         <div className="ml-6 mt-10 flex items-center gap-4">
           <div className="text-3xl font-medium text-grayscale-90">
-            전체 240건
+                      전체 {data?.data.totalElements || 0}건
           </div>
           <button
             type="button"
