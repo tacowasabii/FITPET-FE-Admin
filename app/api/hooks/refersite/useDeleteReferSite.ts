@@ -1,9 +1,10 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@chakra-ui/react";
 import { deleteReferSite } from "@app/api/refersiteAPI";
 
 const useDeleteReferSite = () => {
   const toast = useToast();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: (referSiteId: number) => deleteReferSite(referSiteId),
@@ -13,6 +14,7 @@ const useDeleteReferSite = () => {
         status: "success",
         isClosable: true,
       });
+      queryClient.invalidateQueries({ queryKey: ["refersite"] });
     },
   });
 };

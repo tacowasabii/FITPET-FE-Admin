@@ -1,9 +1,10 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@chakra-ui/react";
 import { updateReferSite, UpdateReferSiteProps } from "@app/api/refersiteAPI";
 
 const useUpdateReferSite = () => {
   const toast = useToast();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: ({ referSiteId, data }: UpdateReferSiteProps) =>
@@ -14,6 +15,7 @@ const useUpdateReferSite = () => {
         status: "success",
         isClosable: true,
       });
+      queryClient.invalidateQueries({ queryKey: ["refersite"] });
     },
   });
 };

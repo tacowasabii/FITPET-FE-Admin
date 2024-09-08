@@ -1,5 +1,29 @@
 import tokenInstance from "./tokenInstance";
 
+interface ProposalItem {
+  proposalId: number;
+  createdAt: string;
+  name: string;
+  email: string;
+  phoneNum: string;
+  comment: string;
+  status: string;
+}
+
+export interface GetProposalResponse {
+  result: string;
+  message: string;
+  statusCode: number;
+  data: {
+    content: ProposalItem[];
+    currentPage: number;
+    numberOfElement: number;
+    pageSize: number;
+    totalElements: number;
+    totalPage: number;
+  };
+}
+
 export interface GetProposalProps {
   startDate?: string;
   endDate?: string;
@@ -17,7 +41,7 @@ export const getProposal = async ({
   endDate,
   status,
   page,
-}: GetProposalProps) => {
+}: GetProposalProps): Promise<GetProposalResponse> => {
   const response = await tokenInstance({
     url: "/proposal",
     method: "get",

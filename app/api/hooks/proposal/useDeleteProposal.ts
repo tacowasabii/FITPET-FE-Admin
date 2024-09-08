@@ -1,9 +1,10 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@chakra-ui/react";
 import { deleteProposal } from "@app/api/proposalAPI";
 
 const useDeleteProposal = () => {
   const toast = useToast();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: (proposalId: number) => deleteProposal(proposalId),
@@ -13,6 +14,7 @@ const useDeleteProposal = () => {
         status: "success",
         isClosable: true,
       });
+      queryClient.invalidateQueries({ queryKey: ["proposal"] });
     },
   });
 };

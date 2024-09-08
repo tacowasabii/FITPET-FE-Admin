@@ -2,7 +2,7 @@ import { getInsuranceExcel } from "@app/api/insuranceAPI";
 import { useToast } from "@chakra-ui/react";
 import { useMutation } from "@tanstack/react-query";
 
-const useGetComparisonExcel = () => {
+const useGetInsuranceExcel = () => {
   const toast = useToast();
   return useMutation({
     mutationFn: () => getInsuranceExcel(),
@@ -23,4 +23,4 @@ const useGetComparisonExcel = () => {
   });
 };
 
-export default useGetComparisonExcel;
+export default useGetInsuranceExcel;
