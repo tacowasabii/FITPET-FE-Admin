@@ -15,7 +15,8 @@ import DeleteIcon from "./delete.svg";
 import SettingIcon from "./setting.svg";
 import AddIcon from "./add.svg";
 import UpTriangleIcon from "./upTriangle.svg";
-import DownTriangleIcon from "./donwTriangle.svg";
+import DownTriangleIcon from "./downTriangle.svg";
+import ResetIcon from "./reset.svg";
 
 export {
   CloseIcon,
@@ -36,4 +37,5 @@ export {
   AddIcon,
   UpTriangleIcon,
   DownTriangleIcon,
+  ResetIcon,
 };
