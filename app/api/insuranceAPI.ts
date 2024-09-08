@@ -2,6 +2,7 @@ import tokenInstance from "./tokenInstance";
 
 interface Insurance {
   insuranceId: number;
+  company: string;
   petType: string;
   age: number;
   dogBreedRank: string | null;
@@ -12,13 +13,18 @@ interface Insurance {
   premium: number;
 }
 
-export interface GetInsuranceDataResponse {
-  content: Insurance[];
-  currentPage: number;
-  pageSize: number;
-  numberOfElement: number;
-  totalElements: number;
-  totalPage: number;
+export interface GetInsuranceResponse {
+  result: string;
+  message: string;
+  statusCode: number;
+  data: {
+    content: Insurance[];
+    currentPage: number;
+    pageSize: number;
+    numberOfElement: number;
+    totalElements: number;
+    totalPage: number;
+  };
 }
 
 export interface GetInsuranceProps {
@@ -31,7 +37,7 @@ export const getInsurance = async ({
   company,
   petType,
   page,
-}: GetInsuranceProps): Promise<GetInsuranceDataResponse> => {
+}: GetInsuranceProps): Promise<GetInsuranceResponse> => {
   const response = await tokenInstance({
     url: "/insurance",
     method: "get",

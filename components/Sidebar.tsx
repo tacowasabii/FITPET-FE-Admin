@@ -18,7 +18,7 @@ function Sidebar() {
     return null;
   }
   return (
-    <aside className="flex h-screen w-60 flex-col">
+    <aside className="flex w-60 flex-col">
       <Image
         alt="sc_logo"
         src="/assets/sc_logo.webp"

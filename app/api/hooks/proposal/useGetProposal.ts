@@ -1,4 +1,8 @@
-import { getProposal, GetProposalProps } from "@app/api/proposalAPI";
+import {
+  getProposal,
+  GetProposalProps,
+  GetProposalResponse,
+} from "@app/api/proposalAPI";
 import { useQuery } from "@tanstack/react-query";
 
 const useGetProposal = ({
@@ -7,7 +11,7 @@ const useGetProposal = ({
   status,
   page,
 }: GetProposalProps) =>
-  useQuery({
+  useQuery<GetProposalResponse>({
     queryKey: ["proposal", startDate, endDate, status, page],
     queryFn: () => getProposal({ startDate, endDate, status, page }),
   });

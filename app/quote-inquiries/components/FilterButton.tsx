@@ -6,17 +6,18 @@ import { useRef, useState } from "react";
 
 interface FilterButtonProps<T extends string> {
   filters: T[];
+  selectedFilter: T;
   width?: string;
   onFilterChange: (filter: T) => void;
 }
 
 function FilterButton<T extends string>({
   filters,
+  selectedFilter,
   width = "w-[60px]",
   onFilterChange,
 }: FilterButtonProps<T>) {
   const [isFilterButtonOpen, setIsFilterButtonOpen] = useState(false);
-  const [selectedFilter, setSelectedFilter] = useState(filters[0]);
   const ref = useRef<HTMLDivElement>(null);
 
   useOutsideClick({
@@ -29,7 +30,6 @@ function FilterButton<T extends string>({
   };
 
   const handleFilterClick = (filter: T) => {
-    setSelectedFilter(filter);
     onFilterChange(filter);
     setIsFilterButtonOpen(false);
   };
