@@ -143,7 +143,7 @@ function PartnershipPage() {
               <th className="border-b px-6 py-3 font-medium">성명</th>
               <th className="border-b px-6 py-3 font-medium">이메일</th>
               <th className="border-b px-6 py-3 font-medium">전화번호</th>
-              <th className="border-b px-6 py-3 font-medium">문의내용</th>
+              <th className="border-b px-6 py-3 font-medium">제휴내용</th>
               <th className="border-b px-6 py-3 font-medium">액션</th>
             </tr>
           </thead>
