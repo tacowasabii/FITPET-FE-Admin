@@ -289,7 +289,7 @@ function QuoteInquiriesPage() {
                 <td className="border-b px-6 py-4">
                   {item.referSite || "웹사이트"}
                 </td>
-                <td className="border-b px-6 py-4">{item.petSpecies}</td>
+                <td className="border-b px-6 py-4">{item.petType}</td>
                 <td className="border-b px-6 py-4">{item.petSpecies}</td>
                 <td className="border-b px-6 py-4">{item.petName}</td>
                 <td className="border-b px-6 py-4">{item.petAge}</td>
