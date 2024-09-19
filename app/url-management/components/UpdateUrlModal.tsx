@@ -57,7 +57,7 @@ function UpdateUrlModal({
         >
           <div className="mb-8 mt-6 flex flex-col gap-8 px-8 text-lg">
             <div className="flex justify-between">
-              <div className="text-3xl font-semibold">URL 추가</div>
+              <div className="text-3xl font-semibold">URL 수정</div>
               <CloseIcon onClick={handleClose} className="cursor-pointer" />
             </div>
             <div className="flex flex-col gap-2">
